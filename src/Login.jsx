@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BACKEND_URL from "./config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Login = () => {
     try {
       console.log(value);
       const res = await axios.post(
-        "http://localhost:5004/Blogs/Signup",
+        `${BACKEND_URL}/Blogs/Signup`,
         value,
         { withCredentials: true }
       );
@@ -46,7 +47,7 @@ const Login = () => {
     setErrorMessage("");
     try {
       console.log(value);
-      const res = await axios.post("http://localhost:5004/Blogs/Login", value, {
+      const res = await axios.post(`${BACKEND_URL}/Blogs/Login`, value, {
         withCredentials: true,
       });
       const { token } = res;

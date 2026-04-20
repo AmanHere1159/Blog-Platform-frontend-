@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import BACKEND_URL from "./config";
 
 import sumurai from "../src/assets/sumurai.jpg";
 import downSumarai from "../src/assets/down-sumarai.jpg";
@@ -27,9 +28,9 @@ const Home = () => {
   useEffect(() => {
     const getBlogs = async () => {
       try {
-        let url = "http://localhost:5004/Blogs/getAllData";
+        let url = `${BACKEND_URL}/Blogs/getAllData`;
         if (selectedCategory && selectedCategory !== "All Categories") {
-           url = `http://localhost:5004/Blogs/getByCategory/${selectedCategory}`;
+           url = `${BACKEND_URL}/Blogs/getByCategory/${selectedCategory}`;
         }
         const response = await fetch(url, {
           method: "GET",
@@ -53,7 +54,7 @@ const Home = () => {
   useEffect(() => {
     const getCurrentUserInfo = async () => {
       try {
-        const response = await fetch("http://localhost:5004/Blogs/getEmail", {
+        const response = await fetch(`${BACKEND_URL}/Blogs/getEmail`, {
           method: "GET",
           credentials: "include",
         });
@@ -70,7 +71,7 @@ const Home = () => {
     getCurrentUserInfo();
   }, []);
 
-  const imageURL = "http://localhost:5004/uploads/";
+  const imageURL = `${BACKEND_URL}/uploads/`;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">

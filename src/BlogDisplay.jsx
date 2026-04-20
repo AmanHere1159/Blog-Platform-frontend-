@@ -5,6 +5,7 @@ import pic7 from "../src/assets/add.png";
 import pic9 from "../src/assets/edit.png";
 import pic10 from "../src/assets/delete.png";
 import axios from "axios";
+import BACKEND_URL from "./config";
 
 const ADMIN_EMAIL = "admin@theblog.com"; // Must match ADMIN_EMAIL in backend .env
 
@@ -23,8 +24,8 @@ const BlogDisplay = () => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const imageURL = "http://localhost:5004/uploads/";
-  const audioBaseURL = "http://localhost:5004/Audio/";
+  const imageURL = `${BACKEND_URL}/uploads/`;
+  const audioBaseURL = `${BACKEND_URL}/Audio/`;
 
   const onEditChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
@@ -33,7 +34,7 @@ const BlogDisplay = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`http://localhost:5004/Blogs/getSingleUser/${id}`, {
+        const res = await fetch(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
           credentials: "include",
         });
         setCode(res.status);
@@ -47,7 +48,7 @@ const BlogDisplay = () => {
 
     const fetchCurrentEmail = async () => {
       try {
-        const res = await fetch("http://localhost:5004/Blogs/getEmail", {
+        const res = await fetch(`${BACKEND_URL}/Blogs/getEmail`, {
           credentials: "include",
         });
         if (res.ok) {
@@ -78,11 +79,11 @@ const BlogDisplay = () => {
     if (!commentText.trim()) return;
     try {
       await axios.put(
-        `http://localhost:5004/Blogs/addComment/${id}`,
+        `${BACKEND_URL}/Blogs/addComment/${id}`,
         { comment: commentText },
         { withCredentials: true }
       );
-      const updatedData = await fetch(`http://localhost:5004/Blogs/getSingleUser/${id}`, {
+      const updatedData = await fetch(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
         credentials: "include",
       }).then(r => r.json());
       setData(updatedData);
@@ -108,7 +109,7 @@ const BlogDisplay = () => {
     }
     setIsDeleting(true);
     try {
-      const res = await axios.delete(`http://localhost:5004/Blogs/deleteBlog/${id}`, {
+      const res = await axios.delete(`${BACKEND_URL}/Blogs/deleteBlog/${id}`, {
         withCredentials: true,
       });
       if (res.status === 200) {
@@ -125,10 +126,10 @@ const BlogDisplay = () => {
 
   const deleteComment = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:5004/Blogs/deleteComment/${id}/${commentId}`, {
+      await axios.delete(`${BACKEND_URL}/Blogs/deleteComment/${id}/${commentId}`, {
         withCredentials: true
       });
-      const updatedData = await fetch(`http://localhost:5004/Blogs/getSingleUser/${id}`, {
+      const updatedData = await fetch(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
         credentials: "include",
       }).then(r => r.json());
       setData(updatedData);

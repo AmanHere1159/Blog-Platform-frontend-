@@ -3,11 +3,12 @@ import Navbar from "./Navbar";
 import pic5 from "../src/assets/logout.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BACKEND_URL from "./config";
 const Logout = () => {
   const navigate = useNavigate();
   const handleclick = async () => {
     try {
-      const res = axios.get("http://localhost:5004/Blogs/Logout", {
+      const res = axios.get(`${BACKEND_URL}/Blogs/Logout`, {
         withCredentials: true,
       });
       if (res) {

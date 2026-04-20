@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import pic2 from "../src/assets/spi.jpg";
+import BACKEND_URL from "./config";
 
 const Copy = () => {
   // useState for useing setting and using data
@@ -9,7 +10,7 @@ const Copy = () => {
     // function
     const getAllData = async () => {
       try {
-        const data = await fetch("http://localhost:5004/Blogs/getAllData");
+        const data = await fetch(`${BACKEND_URL}/Blogs/getAllData`);
         const json = await data.json();
         console.log(json);
 
@@ -21,7 +22,7 @@ const Copy = () => {
     // function calling
     getAllData();
   }, []);
-  const imageURL = "http://localhost:5004/uploads/";
+  const imageURL = `${BACKEND_URL}/uploads/`;
   return (
     <div className="h-230 w-210 bg-amber-500 justify-center flex flex-row gap-5">
       {data.map((item, i) => (

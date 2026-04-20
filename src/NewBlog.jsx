@@ -3,6 +3,7 @@ import pic6 from "../src/assets/Blog.jpg";
 import pic7 from "../src/assets/add.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import BACKEND_URL from "./config";
 
 const NewBlog = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const NewBlog = () => {
     try {
       console.log("this is formdata", formdata)
       const status = await axios.post(
-        "http://localhost:5004/Blogs/upload",
+        `${BACKEND_URL}/Blogs/upload`,
         formdata,
         {
           withCredentials: true,
@@ -81,7 +82,7 @@ const NewBlog = () => {
   useEffect(() => {
     try {
       async function getEmail() {
-        const RegisteredEmail = await axios.get('http://localhost:5004/Blogs/GetEmail', {
+        const RegisteredEmail = await axios.get(`${BACKEND_URL}/Blogs/GetEmail`, {
           headers: { "Content-Type": "multipart/form-data" },
           method: "GET",
           withCredentials: true,

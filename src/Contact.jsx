@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import pic4 from "../src/assets/contact.jpg";
+import pic4 from "./assets/Contact.jpg";
 
 const Contact = () => {
   return (

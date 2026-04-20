@@ -30,13 +30,16 @@ const Login = () => {
         value,
         { withCredentials: true }
       );
-      const { token } = res;
-      console.log(`this is token ${token}`);
-      if (res) {
+      
+      const token = res.data.tokenis;
+      if (token) {
+        localStorage.setItem("Token", token);
+        axios.defaults.headers.common["Token"] = token;
         navigate("/Home");
       }
     } catch (error) {
       console.log(error);
+      setErrorMessage("Signup failed");
     }
   };
   const submitHandlelogin = async () => {
@@ -50,9 +53,11 @@ const Login = () => {
       const res = await axios.post(`${BACKEND_URL}/Blogs/Login`, value, {
         withCredentials: true,
       });
-      const { token } = res;
-      // console.log(`this is token ${token}`);
-      if (res) {
+
+      const token = res.data.token;
+      if (token) {
+        localStorage.setItem("Token", token);
+        axios.defaults.headers.common["Token"] = token;
         navigate("/Home");
       }
     } catch (error) {

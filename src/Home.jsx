@@ -35,6 +35,9 @@ const Home = () => {
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Token": localStorage.getItem("Token")
+          }
         });
         const json = await response.json();
         // Since getByCategory returns { success: true, data }, unpack it if strictly in that format!
@@ -57,6 +60,9 @@ const Home = () => {
         const response = await fetch(`${BACKEND_URL}/Blogs/getEmail`, {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Token": localStorage.getItem("Token")
+          }
         });
         if (response.ok) {
           const json = await response.json();

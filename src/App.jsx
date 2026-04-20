@@ -12,6 +12,13 @@ import Logout from './Logout'
 import NewBlog from './NewBlog'
 import Copy from './Copy'
 import BlogDisplay from './BlogDisplay'
+import axios from 'axios'
+
+// Set initial axios defaults
+const token = localStorage.getItem("Token");
+if (token) {
+  axios.defaults.headers.common["Token"] = token;
+}
 
 
 function App() {

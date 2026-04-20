@@ -36,6 +36,9 @@ const BlogDisplay = () => {
       try {
         const res = await fetch(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
           credentials: "include",
+          headers: {
+            "Token": localStorage.getItem("Token")
+          }
         });
         setCode(res.status);
         const json = await res.json();
@@ -50,6 +53,9 @@ const BlogDisplay = () => {
       try {
         const res = await fetch(`${BACKEND_URL}/Blogs/getEmail`, {
           credentials: "include",
+          headers: {
+            "Token": localStorage.getItem("Token")
+          }
         });
         if (res.ok) {
           const json = await res.json();
@@ -83,10 +89,10 @@ const BlogDisplay = () => {
         { comment: commentText },
         { withCredentials: true }
       );
-      const updatedData = await fetch(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
-        credentials: "include",
-      }).then(r => r.json());
-      setData(updatedData);
+      const response = await axios.get(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
+        withCredentials: true
+      });
+      setData(response.data);
       setComment("");
     } catch (error) {
       console.log(error);
@@ -129,10 +135,10 @@ const BlogDisplay = () => {
       await axios.delete(`${BACKEND_URL}/Blogs/deleteComment/${id}/${commentId}`, {
         withCredentials: true
       });
-      const updatedData = await fetch(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
-        credentials: "include",
-      }).then(r => r.json());
-      setData(updatedData);
+      const response = await axios.get(`${BACKEND_URL}/Blogs/getSingleUser/${id}`, {
+        withCredentials: true
+      });
+      setData(response.data);
     } catch (error) {
       console.log(error);
     }

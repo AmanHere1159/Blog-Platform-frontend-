@@ -8,15 +8,19 @@ const Logout = () => {
   const navigate = useNavigate();
   const handleclick = async () => {
     try {
-      const res = axios.get(`${BACKEND_URL}/Blogs/Logout`, {
+      const res = await axios.get(`${BACKEND_URL}/Blogs/Logout`, {
         withCredentials: true,
       });
+      localStorage.removeItem("Token");
+      delete axios.defaults.headers.common["Token"];
       if (res) {
         setTimeout(() => {
           navigate("/");
         }, 3000);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className=" h-130 w-full relative flex flex-col items-center z-10">
